@@ -2,8 +2,6 @@
 
 import { Card } from "@/components/ui/card";
 import { CopyButton } from "./copy-button";
-import { transformToAffiliateUrl } from "@/lib/affiliate";
-import { useMemo } from "react";
 import { PRODUCT_INFO } from "./data/product";
 
 interface InfoSectionProps {
@@ -14,26 +12,21 @@ interface InfoSectionProps {
 }
 
 function InfoSection({ title, content, copyLabel, isLink }: InfoSectionProps) {
-  const affiliateLink = useMemo(() => 
-    isLink ? transformToAffiliateUrl(content) : content,
-    [content, isLink]
-  );
-
   return (
     <div>
       <div className="flex items-center justify-between mb-2">
         <h3 className="text-lg font-semibold">{title}</h3>
-        <CopyButton text={isLink ? affiliateLink : content} label={copyLabel} />
+        <CopyButton text={content} label={copyLabel} />
       </div>
       {isLink ? (
         <p className="text-muted-foreground break-all">
           <a 
-            href={affiliateLink} 
+            href={content} 
             target="_blank" 
             rel="noopener noreferrer"
             className="text-primary hover:underline"
           >
-            {affiliateLink}
+            {content}
           </a>
         </p>
       ) : (
@@ -56,6 +49,11 @@ export function ProductInfo() {
           title="Long Description"
           content={PRODUCT_INFO.longDescription}
           copyLabel="Long Description"
+        />
+        <InfoSection
+          title="Hashtags"
+          content={PRODUCT_INFO.hashtags}
+          copyLabel="Hashtags"
         />
         <InfoSection
           title="Price"

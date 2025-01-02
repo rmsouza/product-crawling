@@ -4,4 +4,5 @@ export interface ProductDetails {
   shortDescription: string;
   longDescription: string;
   productLink: string;
+  hashtags: string;
 }
